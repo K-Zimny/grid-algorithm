@@ -56,7 +56,9 @@ const INITIAL_GAME_STATE = genGameRows(GAME_ROWS, COMPLEXITY);
 // );
 
 export default function Board() {
-  const [gameState, setGameState] = useState(INITIAL_GAME_STATE);
+  // const [gameState, setGameState] = useState(INITIAL_GAME_STATE);
+  const [gameState, setGameState] = useState(null);
+
   const [borderState, SetBorderState] = useState("null");
   const [isOver, setIsOver] = useState(false);
   const [fails, setFails] = useState(0);
@@ -139,61 +141,67 @@ export default function Board() {
   //   });
   // }, [gameState]);
 
+  useEffect(() => {
+    setGameState(genGameRows(GAME_ROWS, COMPLEXITY));
+  }, []);
+
   return (
     <>
-      <table className="board">
-        <tbody>
-          {/*Map over initial game state, generating all rows and cells*/}
-          {INITIAL_GAME_STATE.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              {row.map((cell, cellIndex) => {
-                const currentCellOrigin = [rowIndex, cellIndex];
-                const currentCell = {
-                  value: cell,
-                  origin: currentCellOrigin,
-                  top:
-                    gameState[currentCellOrigin[0] - 1] !== undefined
-                      ? gameState[currentCellOrigin[0] - 1][
-                          currentCellOrigin[1]
-                        ]
-                      : undefined,
+      {gameState && (
+        <table className="board">
+          <tbody>
+            {/*Map over initial game state, generating all rows and cells*/}
+            {gameState.map((row, rowIndex) => (
+              <tr key={rowIndex}>
+                {row.map((cell, cellIndex) => {
+                  const currentCellOrigin = [rowIndex, cellIndex];
+                  const currentCell = {
+                    value: cell,
+                    origin: currentCellOrigin,
+                    top:
+                      gameState[currentCellOrigin[0] - 1] !== undefined
+                        ? gameState[currentCellOrigin[0] - 1][
+                            currentCellOrigin[1]
+                          ]
+                        : undefined,
 
-                  right:
-                    gameState[currentCellOrigin[1] + 1] !== undefined
-                      ? gameState[currentCellOrigin[0]][
-                          currentCellOrigin[1] + 1
-                        ]
-                      : undefined,
+                    right:
+                      gameState[currentCellOrigin[1] + 1] !== undefined
+                        ? gameState[currentCellOrigin[0]][
+                            currentCellOrigin[1] + 1
+                          ]
+                        : undefined,
 
-                  bottom:
-                    gameState[currentCellOrigin[0] + 1] !== undefined
-                      ? gameState[currentCellOrigin[0] + 1][
-                          currentCellOrigin[1]
-                        ]
-                      : undefined,
+                    bottom:
+                      gameState[currentCellOrigin[0] + 1] !== undefined
+                        ? gameState[currentCellOrigin[0] + 1][
+                            currentCellOrigin[1]
+                          ]
+                        : undefined,
 
-                  left:
-                    gameState[currentCellOrigin[1] - 1] !== undefined
-                      ? gameState[currentCellOrigin[0]][
-                          currentCellOrigin[1] - 1
-                        ]
-                      : undefined,
-                };
-                return (
-                  <Cell
-                    key={[rowIndex, cellIndex]}
-                    id={[rowIndex, cellIndex]}
-                    currentCell={currentCell}
-                    gameState={gameState}
-                    isOver={isOver}
-                    onGameUpdate={() => handleGameUpdate(rowIndex, cellIndex)}
-                  />
-                );
-              })}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                    left:
+                      gameState[currentCellOrigin[1] - 1] !== undefined
+                        ? gameState[currentCellOrigin[0]][
+                            currentCellOrigin[1] - 1
+                          ]
+                        : undefined,
+                  };
+                  return (
+                    <Cell
+                      key={[rowIndex, cellIndex]}
+                      id={[rowIndex, cellIndex]}
+                      currentCell={currentCell}
+                      gameState={gameState}
+                      isOver={isOver}
+                      onGameUpdate={() => handleGameUpdate(rowIndex, cellIndex)}
+                    />
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </>
   );
 }
