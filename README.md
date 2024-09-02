@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Grid Border Generator
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This project is an algorithm designed to generate borders between cells of differing values within a grid. The grid is constructed using arrays, where each array represents a row, and each element within these arrays represents an individual cell. The primary purpose of this algorithm is to evaluate adjacent cells within a large grid (e.g., 20x20 cells) and generate borders based on the values of these neighboring cells.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Dynamic Grid Construction**: The grid is constructed from arrays, making it easy to manipulate and evaluate cell values.
+- **Border Generation**: The algorithm intelligently places borders between cells that contain different values, creating a clear visual separation on the grid.
+- **Large Board Support**: Designed to handle large grids, such as 20x20 cells, efficiently.
+- **Adjacency Evaluation**: The algorithm evaluates the values of adjacent cells and determines the necessary borders based on these evaluations.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How It Works
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. **Grid Initialization**: The grid is initialized as an array of arrays, where each array represents a row of cells, and each element within these arrays represents a single cell.
 
-## Learn More
+2. **Value Assignment**: Each cell in the grid is assigned a value. These values can represent different types or states that require differentiation.
 
-To learn more about Next.js, take a look at the following resources:
+3. **Adjacency Evaluation**: The algorithm evaluates the values of each cell's adjacent cells (up, down, left, right).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. **Border Generation**: Based on the evaluation, the algorithm determines where borders need to be placed. Borders are generated between cells with different values to create a clear distinction between them.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Example
 
-## Deploy on Vercel
+For a 20x20 grid where cells are either value `A` or `B`, the algorithm will:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Evaluate each cell and its neighbors.
+- Place borders between cells where one is `A` and the other is `B`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Usage
+
+1. **Setup the Grid**: Define the grid size and populate it with initial values.
+2. **Run the Algorithm**: Execute the algorithm to generate borders based on adjacent cell values.
+3. **Output**: The grid will now have borders where necessary, creating a visually distinct separation between different cell values.
+
+## Future Enhancements
+
+- Support for more complex cell evaluations and border types.
+- Optimization for even larger grids.
+- Integration with graphical libraries for visual representation.
+
+## License
+
+This project is open-source and available under the MIT License.
